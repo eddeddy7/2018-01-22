@@ -3,6 +3,7 @@ package it.polito.tdp.seriea.model;
 public class Season {
 	private int season;
 	private String description;
+	private int punteggioOro;
 
 	public Season(int season, String description) {
 		super();
@@ -80,6 +81,15 @@ public class Season {
 	@Override
 	public String toString() {
 		return description;
+	}
+
+	public void setPunteggioOro(int punteggio) {
+		this.punteggioOro=punteggio;
+		
+	}
+
+	public int getPunteggioOro() {
+		return punteggioOro;
 	}
 
 }

@@ -1,5 +1,6 @@
 package it.polito.tdp.seriea;
 	
+import it.polito.tdp.seriea.model.Model;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -13,6 +14,11 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("SerieA.fxml"));
 			BorderPane root = (BorderPane) loader.load();
+			SerieAController aController=loader.getController();
+			Model model=new Model();
+			aController.etModel(model);
+			
+			
 			Scene scene = new Scene(root);
 			SerieAController controller = loader.getController();
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

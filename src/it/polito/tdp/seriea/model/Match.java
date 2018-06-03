@@ -28,24 +28,22 @@ public class Match {
 	 * @param ftag
 	 * @param ftr
 	 */
-	public Match(int id, Season season, String div, LocalDate date, Team homeTeam, Team awayTeam, int fthg, int ftag, String ftr) {
-		super();
-		this.id = id;
-		this.season = season;
-		this.div = div;
-		this.date = date;
-		this.homeTeam = homeTeam;
-		this.awayTeam = awayTeam;
-		this.fthg = fthg;
-		this.ftag = ftag;
-		this.ftr = ftr;
-	}
+
 
 	/**
 	 * @return the id
 	 */
 	public int getId() {
 		return id;
+	}
+
+	public Match(int id, Season season, Team homeTeam, Team awayTeam, String ftr) {
+		
+		this.id = id;
+		this.season = season;
+		this.homeTeam = homeTeam;
+		this.awayTeam = awayTeam;
+		this.ftr = ftr;
 	}
 
 	/**

@@ -6,6 +6,10 @@ package it.polito.tdp.seriea;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import it.polito.tdp.seriea.model.Model;
+import it.polito.tdp.seriea.model.SquadraStagionePunti;
+import it.polito.tdp.seriea.model.Team;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,7 +25,7 @@ public class SerieAController {
     private URL location;
 
     @FXML // fx:id="boxSquadra"
-    private ChoiceBox<?> boxSquadra; // Value injected by FXMLLoader
+    private ChoiceBox<Team> boxSquadra; // Value injected by FXMLLoader
 
     @FXML // fx:id="btnSelezionaSquadra"
     private Button btnSelezionaSquadra; // Value injected by FXMLLoader
@@ -35,18 +39,53 @@ public class SerieAController {
     @FXML // fx:id="txtResult"
     private TextArea txtResult; // Value injected by FXMLLoader
 
+	private Model model;
+
     @FXML
     void doSelezionaSquadra(ActionEvent event) {
-
+    	txtResult.clear();
+try {
+	
+	Team team=this.boxSquadra.getValue();
+	if(team==null) {
+		txtResult.setText("errore");
+	return;
+	}
+	String j=model.ottieniStagioniePuntiSquadra(team);
+	if(j==null || j.equals("")) {
+		txtResult.setText("errore");
+		return;	
+	}
+	
+	txtResult.setText(j);
+	model.creaGrafo();
+	
+}catch(RuntimeException rte) {
+	
+	
+}
+    	
+    	
+    	
     }
 
     @FXML
     void doTrovaAnnataOro(ActionEvent event) {
-
+    	model.creaGrafo();
+    	SquadraStagionePunti squadraStagionePunti=model.ottieniAnnataOro();
+    	
+    	txtResult.appendText("\nL'annata d'oro è stata nel: "+squadraStagionePunti.toString());
+    	
+    	
+    	
     }
 
     @FXML
     void doTrovaCamminoVirtuoso(ActionEvent event) {
+    	
+    	txtResult.appendText("\nMiglior sequenza di punteggio: "+model.calcolaCamminoVirtuoso());
+    	
+    	
 
     }
 
@@ -59,4 +98,10 @@ public class SerieAController {
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'SerieA.fxml'.";
 
     }
+
+	public void etModel(Model model) {
+		this.model=model;
+		this.boxSquadra.getItems().addAll(model.ottieniSquadre());
+		
+	}
 }
